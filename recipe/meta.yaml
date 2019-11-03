@@ -1,31 +1,24 @@
-{% set name = "flup" %}
 {% set version = "1.0.3" %}
-{% set compress_type = "tar.gz" %}
-{% set hash_type = "sha256" %}
-{% set hash = "5eb09f26eb0751f8380d8ac43d1dfb20e1d42eca0fa45ea9289fa532a79cd159" %}
 
 package:
-  name: {{ name|lower }}
+  name: flup
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.{{ compress_type }}
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ compress_type }}
-  {{ hash_type }}: {{ hash }}
+  url: https://pypi.org/packages/source/f/flup/flup-{{ version }}.tar.gz
+  sha256: 5eb09f26eb0751f8380d8ac43d1dfb20e1d42eca0fa45ea9289fa532a79cd159
 
 build:
-  skip: True  # [py2k]
-  preserve_egg_dir: True
-  number: 1000
-  script: python -m pip install --no-deps --ignore-installed .
+  number: 1001
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
   build:
-    - python
+    - python >=3
     - pip
-
   run:
-    - python
+    - python >=3
 
 test:
   imports:
